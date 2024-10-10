@@ -1,3 +1,4 @@
 {
-    "cmake.sourceDirectory": "C:/Users/hm0002/Documents/GitHub/flutterdatatesting/linux"
+    "cmake.sourceDirectory": "C:/Users/hm0002/Documents/GitHub/flutterdatatesting/linux",
+    "C_Cpp.errorSquiggles": "disabled"
 }

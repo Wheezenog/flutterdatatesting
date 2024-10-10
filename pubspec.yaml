@@ -1,16 +1,16 @@
 name: flutterdatatesting
 description: "A new Flutter project."
-publish_to: 'none'
+publish_to: "none"
 version: 0.1.0
 
 environment:
   sdk: ^3.5.3
 
 dependencies:
+  csv: ^6.0.0
   flutter:
     sdk: flutter
   logging: ^1.2.0
-  path_provider: ^2.1.4
 
 dev_dependencies:
   flutter_test:
@@ -19,3 +19,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/Data.csv
