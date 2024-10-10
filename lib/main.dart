@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutterdatatesting/util/File_Path.dart';
-// import 'dart:developer';
-
 import 'package:logging/logging.dart';
 
 void main() {
@@ -17,7 +14,6 @@ class MainApp extends StatefulWidget {
 
 class _MainAppState extends State<MainApp> {
   final controller = TextEditingController();
-  FilePath filePath = FilePath();
 
   String contents = '';
   String text = '';
@@ -32,8 +28,8 @@ class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
     final controller = this.controller;
-    final filePath = this.filePath;
     final log = Logger('Main');
+    
     Logger.root.level = Level.ALL; // defaults to Level.INFO
     Logger.root.onRecord.listen((record) {
       // ignore: avoid_print
@@ -56,7 +52,6 @@ class _MainAppState extends State<MainApp> {
             const SizedBox(height: 25),
             FloatingActionButton(
               onPressed: () {
-                filePath.writeData(controller.text);
                 log.info('Data entered: $controller.text');
                 controller.clear();
               },
@@ -67,7 +62,7 @@ class _MainAppState extends State<MainApp> {
             FloatingActionButton(
               onPressed: () {
                 setState(() {
-                  text = contents;
+                  log.info('you clicked the button yippee');
                 });
               },
               tooltip: 'print data',
