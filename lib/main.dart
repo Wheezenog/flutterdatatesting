@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutterdatatesting/util/filePath.dart';
+import 'package:flutterdatatesting/util/File_Path.dart';
 // import 'dart:developer';
 
 import 'package:logging/logging.dart';
@@ -17,7 +17,7 @@ class MainApp extends StatefulWidget {
 
 class _MainAppState extends State<MainApp> {
   final controller = TextEditingController();
-  Filepath filePath = Filepath();
+  FilePath filePath = FilePath();
 
   String contents = '';
   String text = '';
@@ -33,7 +33,6 @@ class _MainAppState extends State<MainApp> {
   Widget build(BuildContext context) {
     final controller = this.controller;
     final filePath = this.filePath;
-    filePath.init();
     final log = Logger('Main');
     Logger.root.level = Level.ALL; // defaults to Level.INFO
     Logger.root.onRecord.listen((record) {
