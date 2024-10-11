@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutterdatatesting/util/CSVData.dart';
 import 'package:logging/logging.dart';
-import 'package:csv/csv.dart';
 
 void main() {
   runApp(const MainApp());
@@ -18,14 +17,6 @@ class _MainAppState extends State<MainApp> {
   final controller = TextEditingController();
   List<List<dynamic>> data = [];
 
-    void loacCSV() async {
-      final rawData = await rootBundle.loadString("assets/Data.csv");
-      List<List<dynamic>> listData = const CsvToListConverter().convert(rawData);
-      setState(() {
-        data = listData;
-      });
-    }
-
   String contents = '';
   String text = '';
 
@@ -37,8 +28,20 @@ class _MainAppState extends State<MainApp> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  void getData() async {
+    data = await CSVData().loadCSVData();
+    final log = Logger('Main');
+    log.info(data);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final controller = this.controller;
+    final controller = TextEditingController();
     final log = Logger('Main');
 
     Logger.root.level = Level.ALL; // defaults to Level.INFO
@@ -66,7 +69,11 @@ class _MainAppState extends State<MainApp> {
               children: [
                 FloatingActionButton(
                   onPressed: () {
-                    log.info('Data entered: $controller.text');
+                    setState(() {
+                      List<String> input = [controller.text];
+                      data.add(input);
+                      CSVData.writeCSVData(data, CSVData.path);
+                    });
                     controller.clear();
                   },
                   tooltip: 'Submit Text!',
@@ -75,8 +82,10 @@ class _MainAppState extends State<MainApp> {
                 const SizedBox(width: 25),
                 FloatingActionButton(
                   onPressed: () {
-                    loacCSV();
-                    print(data);
+                    // log.info(controller.text);
+                    setState(() {
+                      getData();
+                    });
                   },
                   tooltip: 'print data',
                   child: const Icon(Icons.feed_outlined),
@@ -88,6 +97,4 @@ class _MainAppState extends State<MainApp> {
       ),
     ));
   }
-
-
 }
