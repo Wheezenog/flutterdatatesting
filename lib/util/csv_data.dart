@@ -1,11 +1,13 @@
 import 'dart:io';
-
 import 'package:flutterdatatesting/util/constants.dart';
 
 class CSVData {
-  static void init() async {
-    File file = File(Constants.CSV_FILEPATH);
-    String endline = Constants.ENDLINE;
+  late final File file;
+  late final String endline;
+  
+  void init() async {
+    file = File(Constants.CSV_FILEPATH);
+    endline = Constants.ENDLINE;
     file = await file.writeAsString('Text, ID $endline');
   }
 

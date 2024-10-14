@@ -17,7 +17,7 @@ class _MainAppState extends State<MainApp> {
   final controller = TextEditingController();
   List<List<dynamic>> data = [];
   var inputID = 0;
-
+  CSVData csvData = CSVData();
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
@@ -28,11 +28,12 @@ class _MainAppState extends State<MainApp> {
   @override
   void initState() {
     super.initState();
-    CSVData.init();
+    csvData.init();
+    
   }
 
   void getData() async {
-    data = await CSVData().loadCSVData();
+    data = await csvData.loadCSVData();
     var log = Logger();
     log.t(data[0][1]);
   }
