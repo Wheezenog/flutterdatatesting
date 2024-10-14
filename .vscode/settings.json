@@ -1,4 +1,8 @@
 {
     "cmake.sourceDirectory": "C:/Users/hm0002/Documents/GitHub/flutterdatatesting/linux",
-    "C_Cpp.errorSquiggles": "disabled"
+    "C_Cpp.errorSquiggles": "disabled",
+    "cSpell.words": [
+        "endline",
+        "flutterdatatesting"
+    ]
 }

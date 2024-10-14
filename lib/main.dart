@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutterdatatesting/util/CSVData.dart';
-import 'package:logging/logging.dart';
+import 'package:flutterdatatesting/util/csv_data.dart';
+import 'package:logger/logger.dart';
 
 void main() {
   runApp(const MainApp());
@@ -16,9 +16,7 @@ class MainApp extends StatefulWidget {
 class _MainAppState extends State<MainApp> {
   final controller = TextEditingController();
   List<List<dynamic>> data = [];
-
-  String contents = '';
-  String text = '';
+  var inputID = 0;
 
   @override
   void dispose() {
@@ -30,25 +28,18 @@ class _MainAppState extends State<MainApp> {
   @override
   void initState() {
     super.initState();
-    getData();
+    CSVData.init();
   }
 
   void getData() async {
     data = await CSVData().loadCSVData();
-    final log = Logger('Main');
-    log.info(data);
+    var log = Logger();
+    log.t(data[0][1]);
   }
 
   @override
   Widget build(BuildContext context) {
     final controller = TextEditingController();
-    final log = Logger('Main');
-
-    Logger.root.level = Level.ALL; // defaults to Level.INFO
-    Logger.root.onRecord.listen((record) {
-      // ignore: avoid_print
-      print('${record.level.name}: ${record.time}: ${record.message}');
-    });
 
     return MaterialApp(
         home: Scaffold(
@@ -70,9 +61,9 @@ class _MainAppState extends State<MainApp> {
                 FloatingActionButton(
                   onPressed: () {
                     setState(() {
-                      List<String> input = [controller.text];
-                      data.add(input);
-                      CSVData.writeCSVData(data, CSVData.path);
+                      inputID++;
+                      String inputText = controller.text;
+                      CSVData.writeCSVData('$inputText, $inputID');
                     });
                     controller.clear();
                   },
@@ -82,7 +73,6 @@ class _MainAppState extends State<MainApp> {
                 const SizedBox(width: 25),
                 FloatingActionButton(
                   onPressed: () {
-                    // log.info(controller.text);
                     setState(() {
                       getData();
                     });
